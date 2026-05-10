@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECRET HUB - Share Your Heart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Landing Page -->
+        <div id="landingPage" class="page">
+            <div class="landing-container">
+                <div class="logo-section">
+                    <svg viewBox="0 0 200 200" class="logo">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#06b6d4;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Lock icon -->
+                        <rect x="60" y="80" width="80" height="60" rx="8" fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+                        <circle cx="100" cy="70" r="20" fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+                        <path d="M 85 100 L 85 110 M 115 100 L 115 110 M 95 120 L 105 120" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h1 class="main-title">SECRET HUB</h1>
+                    <p class="subtitle">Share Your Secrets, Sorrows & Happiness</p>
+                </div>
+                
+                <div class="landing-content">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔐</div>
+                        <h3>Your Privacy Matters</h3>
+                        <p>Keep your secrets safe with secure authentication</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💭</div>
+                        <h3>Share Freely</h3>
+                        <p>Express your secrets, sorrows, and happiness</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌟</div>
+                        <h3>Get Inspired</h3>
+                        <p>Receive motivational quotes when you need them</p>
+                    </div>
+                </div>
+
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" onclick="showPage('loginPage')">Sign In</button>
+                    <button class="btn btn-secondary" onclick="showPage('registerPage')">Create Account</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page hidden">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Welcome to Secret Hub</h2>
+                    <p class="auth-subtitle">Create your account to begin sharing</p>
+                    
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="registerUsername">Username</label>
+                            <input type="text" id="registerUsername" placeholder="Choose a username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" placeholder="Enter a strong password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" placeholder="Your email address" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">Create Account</button>
+                    </form>
+                    
+                    <p class="auth-link">Already have an account? <a href="#" onclick="showPage('loginPage')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="page hidden">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Sign in to your Secret Hub account</p>
+                    
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" placeholder="Your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">Sign In</button>
+                    </form>
+                    
+                    <p class="auth-link">Don't have an account? <a href="#" onclick="showPage('registerPage')">Create one</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main App Page -->
+        <div id="mainPage" class="page hidden">
+            <div class="main-container">
+                <!-- Header -->
+                <header class="header">
+                    <div class="header-content">
+                        <div class="logo-small">SECRET HUB</div>
+                        <div class="user-section">
+                            <span id="currentUser" class="current-user"></span>
+                            <button class="btn btn-sm btn-danger" onclick="handleLogout()">Logout</button>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Main Content -->
+                <div class="content">
+                    <!-- Tabs -->
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('secrets')">🔐 Secrets</button>
+                        <button class="tab-btn" onclick="switchTab('sorrows')">💔 Sorrows</button>
+                        <button class="tab-btn" onclick="switchTab('happiness')">😊 Happiness</button>
+                        <button class="tab-btn" onclick="switchTab('notes')">📝 Notes</button>
+                        <button class="tab-btn" onclick="switchTab('myContent')">📚 My Content</button>
+                    </div>
+
+                    <!-- Secrets Tab -->
+                    <div id="secrets" class="tab-content active">
+                        <div class="section-header">
+                            <h2>Share Your Secrets</h2>
+                            <p>A safe space to reveal what's hidden in your heart</p>
+                        </div>
+                        <div class="share-card">
+                            <textarea id="secretInput" placeholder="What secret has been weighing on your heart? Share it here..."></textarea>
+                            <div class="privacy-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="secretPrivate" onchange="togglePrivacy('secret')">
+                                    <span>Make it Private (Set Password)</span>
+                                </label>
+                                <div id="secretPasswordDiv" class="password-section hidden">
+                                    <input type="password" id="secretPassword" placeholder="Set a password for this secret">
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient" onclick="shareSecret()">Share Secret Safely</button>
+                        </div>
+                    </div>
+
+                    <!-- Sorrows Tab -->
+                    <div id="sorrows" class="tab-content hidden">
+                        <div class="section-header">
+                            <h2>Share Your Sorrows</h2>
+                            <p>Let us help lighten your emotional burden</p>
+                        </div>
+                        <div class="share-card">
+                            <textarea id="sorrowInput" placeholder="What's breaking your heart? Share what makes you sad..."></textarea>
+                            <div class="privacy-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="sorrowPrivate" onchange="togglePrivacy('sorrow')">
+                                    <span>Make it Private (Set Password)</span>
+                                </label>
+                                <div id="sorrowPasswordDiv" class="password-section hidden">
+                                    <input type="password" id="sorrowPassword" placeholder="Set a password for this sorrow">
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient" onclick="shareSorrow()">Share Your Pain</button>
+                        </div>
+                        <div id="motivationBox" class="motivation-box hidden">
+                            <h3>✨ A Thought for You</h3>
+                            <p id="motivationText"></p>
+                            <button class="btn btn-sm btn-secondary" onclick="getNewQuote('sorrow')">Get Another Quote</button>
+                        </div>
+                    </div>
+
+                    <!-- Happiness Tab -->
+                    <div id="happiness" class="tab-content hidden">
+                        <div class="section-header">
+                            <h2>Share Your Happiness</h2>
+                            <p>Spread the joy and celebrate life's beautiful moments</p>
+                        </div>
+                        <div class="share-card">
+                            <textarea id="happinessInput" placeholder="What's making you smile today? Share your joy with us..."></textarea>
+                            <div class="privacy-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="happinessPrivate" onchange="togglePrivacy('happiness')">
+                                    <span>Make it Private (Set Password)</span>
+                                </label>
+                                <div id="happinessPasswordDiv" class="password-section hidden">
+                                    <input type="password" id="happinessPassword" placeholder="Set a password for this moment">
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient" onclick="shareHappiness()">Spread The Joy</button>
+                        </div>
+                        <div id="cheerBox" class="cheer-box hidden">
+                            <h3>🎉 Keep Smiling!</h3>
+                            <p id="cheerText"></p>
+                            <button class="btn btn-sm btn-secondary" onclick="getCheerUp()">Get Another Cheer</button>
+                        </div>
+                    </div>
+
+                    <!-- Notes Tab -->
+                    <div id="notes" class="tab-content hidden">
+                        <div class="section-header">
+                            <h2>Public Notes</h2>
+                            <p>Share your thoughts with the world or keep them private</p>
+                        </div>
+                        <div class="share-card">
+                            <input type="text" id="noteTitle" placeholder="Title your note...">
+                            <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+                            <div class="privacy-options">
+                                <label class="checkbox-label">
+                                    <input type="radio" name="notePrivacy" value="public" checked>
+                                    <span>Public (Everyone can see)</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="radio" name="notePrivacy" value="private" onchange="toggleNotePrivacy()">
+                                    <span>Private (Password Protected)</span>
+                                </label>
+                                <div id="notePasswordDiv" class="password-section hidden">
+                                    <input type="password" id="notePassword" placeholder="Set a password for this note">
+                                </div>
+                            </div>
+                            <button class="btn btn-gradient" onclick="shareNote()">Save Note</button>
+                        </div>
+                    </div>
+
+                    <!-- My Content Tab -->
+                    <div id="myContent" class="tab-content hidden">
+                        <div class="section-header">
+                            <h2>Your Content Library</h2>
+                            <p>All your shared secrets, sorrows, happiness, and notes</p>
+                        </div>
+                        <div id="contentList" class="content-list">
+                            <!-- Content will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
